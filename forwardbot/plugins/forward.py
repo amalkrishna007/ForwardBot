@@ -142,7 +142,7 @@ async def handler(event):
             m=await event.respond("Trying Forwarding")
             fromchat = int(fromchannel)
             tochat = int(tochannel)
-            count = 4441
+            count = 3989
             mcount = 991
             global MessageCount
             offset = int(offsetid)
@@ -217,14 +217,14 @@ async def handler(event):
                         await m.edit("Starting after 10 mins")
                 else:
                     print(f"You have send {MessageCount} messages")
-                    print("Waiting for 30 mins")
+                    print("Waiting for 5 hours")
                     status.add("2")
                     status.remove("1")
-                    await m.edit(f"You have send {MessageCount} messages.\nWaiting for 30 minutes.")
-                    await asyncio.sleep(1800)
-                    count = 4441
-                    print("Starting after 30 mins")
-                    await m.edit("Starting after 30 mins")
+                    await m.edit(f"You have send {MessageCount} messages.\nWaiting for 5 hours.")
+                    await asyncio.sleep(18000)
+                    count = 3989
+                    print("Starting after 5 hours")
+                    await m.edit("Starting after 5 hours")
                     
         except ValueError:
             await m.edit("You must join the channel before starting forwarding. Use /join")
