@@ -52,9 +52,21 @@ async def handler(event):
         while True:
             q = conv.wait_event(events.NewMessage(chats=event.chat_id))
             q = await q
-            global offsetid
-            offsetid = q.message.message.strip()
+            global endsetid
+            tochannel = q.message.message.strip()
             if not q.is_reply:
+                await conv.send_message("Please send the message as a reply to the message.")
+            else:
+                await conv.send_message("Okay now send me the message id till where you want forward as a reply to this message.(0 if you want to forward till end)")
+                break
+        while True:
+            r = conv.wait_event(events.NewMessage(chats=event.chat_id))
+            r = await r
+            global offsetid
+            if not r:
+                r = 'None'
+            offsetid = r.message.message.strip()
+            if not r.is_reply:
                 await conv.send_message("Please send the message as a reply to the message.")
             else:
                 break
@@ -146,12 +158,13 @@ async def handler(event):
             mcount = 991
             global MessageCount
             offset = int(offsetid)
+            endset = int(endsetid)
             if offset:
                 offset = offset-1
             print("Starting to forward")
             global start
             start = str(datetime.datetime.now())
-            async for message in client.iter_messages(fromchat, reverse=True, offset_id=offset):
+            async for message in client.iter_messages(fromchat, reverse=True, offset_id=offset, max_id=endset):
                 if count:
                     if mcount:
                         if media_type(message) == type or type == 'All':
